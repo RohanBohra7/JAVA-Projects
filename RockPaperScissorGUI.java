@@ -1,5 +1,8 @@
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 //frontend
@@ -7,6 +10,9 @@ public class RockPaperScissorGUI extends JFrame
 {
     //player buttons
     JButton rockButton, paperButton, scissorButton;
+
+    // will display the choice of the computer
+    JLabel computerChoice;
 
 
     public  RockPaperScissorGUI(){
@@ -47,7 +53,7 @@ public class RockPaperScissorGUI extends JFrame
         add(computerScoreLabel);
 
         //ceate computer choice
-        JLabel computerChoice=new JLabel("?");
+         computerChoice=new JLabel("?");
         computerChoice.setBounds(175,118,98,81);
         computerChoice.setFont(new Font("Dialog", Font.PLAIN, 18));
         computerChoice.setHorizontalAlignment(SwingConstants.CENTER);
@@ -86,6 +92,8 @@ public class RockPaperScissorGUI extends JFrame
         scissorButton.setFont(new Font("Dialog", Font.PLAIN, 18));
         add(scissorButton);
 
+        showDialog("Test Message");
+
 
         }
 
@@ -101,7 +109,26 @@ public class RockPaperScissorGUI extends JFrame
             JLabel resultLabel=new JLabel(message);
             resultLabel.setFont(new Font("Dialog", Font.BOLD, 18));
             resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            resultDialog.add(resultLabel);
+            resultDialog.add(resultLabel, BorderLayout.CENTER);
+
+            //try again button
+            JButton tryAgainButton= new JButton("Try Again?");
+            tryAgainButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e)
+                {
+                    // reset computer choice
+                    computerChoice.setText("?");
+
+                    //close the dialog box
+                    resultDialog.dispose();
+                }
+            });
+
+            resultDialog.add(tryAgainButton, BorderLayout.SOUTH);
+
+            resultDialog.setLocationRelativeTo(this);
+            resultDialog.setVisible(true);
 
 
 
